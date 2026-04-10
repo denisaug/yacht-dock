@@ -1,7 +1,7 @@
 # YACHT DOCK — 8-bit Docking Simulator
 
 [![Live](https://img.shields.io/badge/live-govorunov.pro%2Fyacht--dock-yellow?style=flat-square)](https://govorunov.pro/yacht-dock/)
-[![License](https://img.shields.io/badge/license-MIT-blue?style=flat-square)](#license)
+[![License](https://img.shields.io/badge/license-MPL%202.0-blue?style=flat-square)](#license)
 
 Browser-based sandbox sailing simulator. NES/Contra aesthetic, semi-realistic physics, 8-bit OST, mobile first.
 
@@ -120,7 +120,7 @@ Forks and PRs welcome. Read `docs/PHYSICS.md` before touching the physics. For a
 
 ## License
 
-MIT
+[Mozilla Public License 2.0](LICENSE)
 
 ## Credits
 
