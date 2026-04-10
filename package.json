@@ -1,0 +1,5 @@
+{
+  "scripts": {
+    "build": "npx esbuild src/main.js --bundle --outfile=bundle.js --format=iife"
+  }
+}

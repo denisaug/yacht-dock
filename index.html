@@ -1,0 +1,411 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="theme-color" content="#0c1a3b">
+<meta name="description" content="YACHT DOCK — 8-bit тренажёр швартовки яхт. Ветер, киль, prop walk, bow thruster. Для будущих шкиперов.">
+<title>YACHT DOCK — тренажёр швартовки</title>
+<link rel="stylesheet" href="./style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%230c1a3b'/%3E%3Crect x='7' y='2' width='2' height='10' fill='%23fff'/%3E%3Cpath d='M9 3 L14 7 L9 7 Z' fill='%23ff3b3b'/%3E%3Crect x='4' y='11' width='8' height='2' fill='%23ffd23f'/%3E%3C/svg%3E">
+</head>
+<body>
+
+<div id="boot" class="boot-screen">
+  <div class="boot-logo">
+    <div class="boot-title">YACHT<br>DOCK</div>
+    <div class="boot-sub">MOORING TRAINER</div>
+    <div class="boot-sub">vibe coded using claude.ai</div>
+    <div class="boot-flag">▲</div>
+  </div>
+  <button id="boot-start" class="nes-btn nes-btn-yellow">TAP TO START</button>
+  <div class="boot-credit">© 2026 <a href="https:govorunov.pro" target="_blank">DENIS GOVORUNOV</a>, <a href="https://timzinin.com" target="_blank">TIM ZININ</a> · PRESS START</div>
+</div>
+
+<div id="config" class="config-screen hidden">
+  <div class="config-header">
+    <div class="config-title">SETUP YOUR BOAT</div>
+    <div class="config-sub">SANDBOX · FREE PLAY</div>
+  </div>
+
+  <div class="config-body">
+    <div class="config-section">
+      <div class="config-label">YACHT LENGTH</div>
+      <div class="config-options" data-group="length">
+        <button class="opt-btn" data-value="30">30 FT</button>
+        <button class="opt-btn" data-value="40">40 FT</button>
+        <button class="opt-btn" data-value="50">50 FT</button>
+        <button class="opt-btn" data-value="55">55 FT</button>
+      </div>
+    </div>
+
+    <div class="config-section">
+      <div class="config-label">RUDDER</div>
+      <div class="config-options" data-group="rudder">
+        <button class="opt-btn" data-value="single">SINGLE</button>
+        <button class="opt-btn" data-value="twin">TWIN</button>
+      </div>
+    </div>
+
+    <div class="config-section">
+      <div class="config-label">KEEL</div>
+      <div class="config-options" data-group="keel">
+        <button class="opt-btn" data-value="full">FULL</button>
+        <button class="opt-btn" data-value="fin">FIN</button>
+        <button class="opt-btn" data-value="bulb">BULB</button>
+        <button class="opt-btn" data-value="lift">LIFT</button>
+      </div>
+    </div>
+
+    <div class="config-section">
+      <div class="config-label">BOW THRUSTER</div>
+      <div class="config-options" data-group="thruster">
+        <button class="opt-btn" data-value="no">NO</button>
+        <button class="opt-btn" data-value="yes">YES</button>
+      </div>
+    </div>
+
+    <div class="config-section">
+      <div class="config-label">DOCKING TYPE</div>
+      <div class="config-options config-options-wrap" data-group="dock">
+        <button class="opt-btn" data-value="alongside">ALONGSIDE</button>
+        <button class="opt-btn" data-value="stern-med">STERN · MED</button>
+        <button class="opt-btn" data-value="stern-anchor">STERN · ANCHOR</button>
+        <button class="opt-btn" data-value="bow-to">BOW TO</button>
+        <button class="opt-btn" data-value="piles">PILES BOX</button>
+        <button class="opt-btn" data-value="mooring-ball">MOORING BALL</button>
+      </div>
+    </div>
+
+    <div class="config-section">
+      <div class="config-label">WIND (KNOTS)</div>
+      <div class="config-options" data-group="wind">
+        <button class="opt-btn" data-value="0">0</button>
+        <button class="opt-btn" data-value="5">5</button>
+        <button class="opt-btn" data-value="10">10</button>
+        <button class="opt-btn" data-value="15">15</button>
+        <button class="opt-btn" data-value="20">20</button>
+        <button class="opt-btn" data-value="25">25</button>
+        <button class="opt-btn" data-value="30">30</button>
+      </div>
+    </div>
+
+    <div class="config-section">
+      <div class="config-label">GUSTS</div>
+      <div class="config-options" data-group="gusts">
+        <button class="opt-btn" data-value="no">OFF</button>
+        <button class="opt-btn" data-value="yes">GUSTS</button>
+      </div>
+    </div>
+
+    <div class="config-section">
+      <div class="config-label">WIND DIRECTION</div>
+      <div class="config-options" data-group="winddir">
+        <button class="opt-btn" data-value="0">N</button>
+        <button class="opt-btn" data-value="90">E</button>
+        <button class="opt-btn" data-value="180">S</button>
+        <button class="opt-btn" data-value="270">W</button>
+      </div>
+    </div>
+
+    <div class="config-section">
+      <div class="config-label">OBSTACLES</div>
+      <div class="config-options" data-group="obs">
+        <button class="opt-btn" data-value="empty">EMPTY</button>
+        <button class="opt-btn" data-value="normal">NORMAL</button>
+        <button class="opt-btn" data-value="crowded">CROWDED</button>
+      </div>
+    </div>
+
+    <!--<div class="config-section">
+      <div class="config-label">THROTTLE MODE</div>
+      <div class="config-options" data-group="throttlemode">
+        <button class="opt-btn" data-value="click">CLICK</button>
+        <button class="opt-btn" data-value="smooth">SMOOTH</button>
+      </div>
+    </div>-->
+
+    <div class="config-section">
+      <div class="config-label">MUSIC VOL</div>
+      <div class="config-options" data-group="musicvol">
+        <button class="opt-btn" data-value="0">OFF</button>
+        <button class="opt-btn" data-value="25">25%</button>
+        <button class="opt-btn" data-value="50">50%</button>
+        <button class="opt-btn" data-value="75">75%</button>
+        <button class="opt-btn" data-value="100">100%</button>
+      </div>
+    </div>
+
+    <div class="config-section">
+      <div class="config-label">SFX VOL</div>
+      <div class="config-options" data-group="sfxvol">
+        <button class="opt-btn" data-value="0">OFF</button>
+        <button class="opt-btn" data-value="25">25%</button>
+        <button class="opt-btn" data-value="50">50%</button>
+        <button class="opt-btn" data-value="75">75%</button>
+        <button class="opt-btn" data-value="100">100%</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="config-footer">
+    <button id="config-start" class="nes-btn nes-btn-green">CAST OFF ▶</button>
+  </div>
+</div>
+
+<div id="game" class="game-screen hidden">
+  <div class="hud">
+    <div class="hud-center">
+      <div class="hud-label" id="hud-dock-label">ALONGSIDE</div>
+      <div class="hud-status" id="hud-status">APPROACHING</div>
+    </div>
+    <div class="hud-right">
+      <button id="btn-menu" class="hud-menu-btn">MENU</button>
+    </div>
+  </div>
+
+  <canvas id="canvas"></canvas>
+
+  <div id="dashboard" class="dashboard">
+    <div class="dash-widget">
+      <div class="dash-icon" id="hud-wind-arrow">↑</div>
+      <div class="dash-val" id="hud-wind-val">-- KN</div>
+      <div class="dash-gust-bar"><div id="hud-gust-fill"></div></div>
+      <div class="dash-gust" id="hud-gust-label"></div>
+      <div class="dash-lbl">WIND</div>
+    </div>
+    <div class="dash-sep"></div>
+    <div class="dash-widget">
+      <div class="dash-val dash-big" id="hud-speed-val">0.0 KN</div>
+      <div class="dash-lbl">SPEED</div>
+    </div>
+    <div class="dash-sep"></div>
+    <div class="dash-widget">
+      <div class="dash-rudder-wrap">
+        <canvas id="axiometer" width="80" height="46"></canvas>
+      </div>
+      <div class="dash-lbl">RUDDER</div>
+    </div>
+    <div class="dash-sep"></div>
+    <div class="dash-widget dash-radio-widget">
+      <div class="radio-lcd" id="radio-ch-display">CH 16</div>
+      <button class="radio-sel-btn" id="btn-radio-ch">SEL</button>
+      <div class="dash-lbl">RADIO</div>
+    </div>
+  </div>
+
+  <div class="controls" id="controls">
+    <div class="ctrl-col ctrl-col-left">
+      <button class="ctrl-btn ctrl-lr" data-ctrl="rudder-left">◀</button>
+      <div class="ctrl-label">PORT</div>
+    </div>
+
+    <div class="ctrl-col ctrl-col-thruster">
+      <button class="ctrl-btn ctrl-sm" data-ctrl="thruster-left">◀◀</button>
+      <div class="ctrl-label">BOW</div>
+      <button class="ctrl-btn ctrl-sm" data-ctrl="thruster-right">▶▶</button>
+    </div>
+
+    <div class="ctrl-col ctrl-col-throttle">
+      <button class="ctrl-btn ctrl-throttle ctrl-up" data-ctrl="throttle-up">▲</button>
+      <div class="ctrl-throttle-bar"><div id="throttle-fill"></div></div>
+      <div class="gear-label" id="gear-label">N</div>
+      <button class="ctrl-btn ctrl-throttle ctrl-down" data-ctrl="throttle-down">▼</button>
+    </div>
+
+    <div class="ctrl-col ctrl-col-right">
+      <button class="ctrl-btn ctrl-lr" data-ctrl="rudder-right">▶</button>
+      <div class="ctrl-label">STBD</div>
+    </div>
+  </div>
+
+  <div id="anchor-panel" class="anchor-panel hidden">
+    <button id="btn-anchor" class="anchor-btn">⚓ DROP ANCHOR</button>
+  </div>
+
+  <div id="toast" class="toast hidden"></div>
+
+  <!-- WIN overlay -->
+  <div id="overlay-win" class="overlay overlay-win hidden">
+    <div id="confetti-layer" class="confetti-layer"></div>
+    <div class="overlay-box win-box">
+      <div class="overlay-title win-title">ПРИЧАЛИЛ!</div>
+      <div class="win-woman">
+        <!-- pixel-art girl, 24×40 art-pixels @ 4px = 96×160 -->
+        <svg class="woman-sprite" xmlns="http://www.w3.org/2000/svg"
+             viewBox="0 0 24 40" width="96" height="160"
+             shape-rendering="crispEdges">
+
+          <!-- ═══ HAIR back layer ═══ -->
+          <rect x="5"  y="0" width="14" height="2" fill="#d4a020"/>
+          <rect x="4"  y="1" width="16" height="3" fill="#e8b828"/>
+          <rect x="6"  y="0" width="10" height="2" fill="#f4cc40"/><!-- highlight -->
+          <!-- flowing sides (behind face) -->
+          <rect x="1"  y="3" width="4"  height="16" fill="#c49018"/>
+          <rect x="19" y="3" width="4"  height="16" fill="#c49018"/>
+          <!-- wavy ends -->
+          <rect x="0"  y="10" width="3" height="12" fill="#b88010"/>
+          <rect x="21" y="10" width="3" height="12" fill="#b88010"/>
+          <rect x="1"  y="18" width="3" height="4"  fill="#c49018"/>
+          <rect x="20" y="18" width="3" height="4"  fill="#c49018"/>
+
+          <!-- ═══ FACE ═══ -->
+          <rect x="5"  y="3" width="14" height="14" fill="#fccb94"/>
+          <!-- forehead highlight -->
+          <rect x="8"  y="3" width="8"  height="3"  fill="#fde0b8"/>
+          <!-- jaw / chin shape -->
+          <rect x="6"  y="15" width="12" height="2" fill="#fccb94"/>
+          <rect x="8"  y="17" width="8"  height="1" fill="#f0b87c"/>
+
+          <!-- hair front layer covering face sides -->
+          <rect x="5"  y="3" width="3"  height="14" fill="#d4a020"/>
+          <rect x="16" y="3" width="3"  height="14" fill="#d4a020"/>
+
+          <!-- ═══ EYEBROWS ═══ -->
+          <rect x="7"  y="5" width="5" height="1" fill="#7a4c10"/>
+          <rect x="8"  y="4" width="3" height="1" fill="#7a4c10"/>
+          <rect x="13" y="5" width="5" height="1" fill="#7a4c10"/>
+          <rect x="13" y="4" width="3" height="1" fill="#7a4c10"/>
+
+          <!-- ═══ LEFT EYE — open (default) ═══ -->
+          <g>
+            <rect x="7"  y="6"  width="5" height="1" fill="#111"/><!-- upper lash -->
+            <rect x="7"  y="7"  width="5" height="3" fill="#111"/><!-- socket -->
+            <rect x="8"  y="7"  width="3" height="3" fill="#3aaa70"/><!-- iris -->
+            <rect x="8"  y="7"  width="2" height="2" fill="#60cc90"/><!-- iris lite -->
+            <rect x="8"  y="7"  width="1" height="1" fill="#c0ffdd"/><!-- sparkle -->
+            <rect x="9"  y="9"  width="1" height="1" fill="#1a1a50"/><!-- pupil -->
+            <rect x="7"  y="10" width="5" height="1" fill="#333"/><!-- lower lash -->
+            <animate attributeName="visibility" calcMode="discrete"
+              values="visible;hidden;visible;visible"
+              keyTimes="0;0.75;0.87;1" dur="4s" repeatCount="indefinite"/>
+          </g>
+          <!-- LEFT EYE — wink -->
+          <g visibility="hidden">
+            <rect x="7"  y="6"  width="1" height="1" fill="#111"/>
+            <rect x="8"  y="6"  width="2" height="1" fill="#111"/>
+            <rect x="10" y="6"  width="1" height="1" fill="#111"/>
+            <rect x="7"  y="7"  width="5" height="1" fill="#111"/><!-- wink line -->
+            <rect x="7"  y="8"  width="1" height="1" fill="#f0a0a0"/><!-- crinkle -->
+            <rect x="11" y="8"  width="1" height="1" fill="#f0a0a0"/>
+            <animate attributeName="visibility" calcMode="discrete"
+              values="hidden;visible;hidden;hidden"
+              keyTimes="0;0.75;0.87;1" dur="4s" repeatCount="indefinite"/>
+          </g>
+
+          <!-- ═══ RIGHT EYE — open ═══ -->
+          <rect x="13" y="6"  width="5" height="1" fill="#111"/>
+          <rect x="13" y="7"  width="5" height="3" fill="#111"/>
+          <rect x="14" y="7"  width="3" height="3" fill="#3aaa70"/>
+          <rect x="14" y="7"  width="2" height="2" fill="#60cc90"/>
+          <rect x="14" y="7"  width="1" height="1" fill="#c0ffdd"/>
+          <rect x="15" y="9"  width="1" height="1" fill="#1a1a50"/>
+          <rect x="13" y="10" width="5" height="1" fill="#333"/>
+
+          <!-- ═══ BLUSH ═══ -->
+          <rect x="5"  y="11" width="3" height="2" fill="#ffb0b0" opacity="0.55"/>
+          <rect x="16" y="11" width="3" height="2" fill="#ffb0b0" opacity="0.55"/>
+
+          <!-- ═══ NOSE (subtle) ═══ -->
+          <rect x="11" y="11" width="2" height="3" fill="#e8a870" opacity="0.65"/>
+          <rect x="10" y="13" width="4" height="1" fill="#d89060" opacity="0.50"/>
+
+          <!-- ═══ LIPS ═══ -->
+          <rect x="9"  y="14" width="1" height="1" fill="#e03050"/><!-- cupid bow L -->
+          <rect x="10" y="13" width="4" height="2" fill="#e03050"/><!-- upper lip -->
+          <rect x="14" y="14" width="1" height="1" fill="#e03050"/><!-- cupid bow R -->
+          <rect x="9"  y="15" width="6" height="2" fill="#ee3c5a"/><!-- lower lip -->
+          <rect x="10" y="16" width="4" height="1" fill="#aa1835"/><!-- shadow -->
+
+          <!-- ═══ NECK ═══ -->
+          <rect x="10" y="18" width="4" height="3" fill="#fccb94"/>
+          <rect x="9"  y="20" width="6" height="1" fill="#f0b87c"/><!-- collarbone hint -->
+
+          <!-- ═══ DRESS — straps / neckline ═══ -->
+          <rect x="4"  y="21" width="16" height="1" fill="#e81c50"/>
+          <rect x="10" y="21" width="4"  height="2" fill="#fccb94"/><!-- V-neck skin -->
+
+          <!-- bust (hourglass) -->
+          <rect x="3"  y="22" width="18" height="4" fill="#e81c50"/>
+          <!-- bust highlight -->
+          <rect x="4"  y="22" width="4"  height="3" fill="#ff3868"/>
+          <rect x="16" y="22" width="4"  height="3" fill="#ff3868"/>
+          <!-- shadow between bust -->
+          <rect x="10" y="22" width="4"  height="4" fill="#c00038"/>
+
+          <!-- waist (narrow) -->
+          <rect x="7"  y="26" width="10" height="3" fill="#e81c50"/>
+          <!-- belt -->
+          <rect x="7"  y="26" width="10" height="1" fill="#8c0020"/>
+          <rect x="11" y="26" width="2"  height="1" fill="#cc2040"/><!-- buckle -->
+
+          <!-- hips (wider) -->
+          <rect x="4"  y="29" width="16" height="3" fill="#e81c50"/>
+
+          <!-- skirt flare -->
+          <rect x="2"  y="32" width="20" height="3" fill="#e81c50"/>
+          <rect x="1"  y="35" width="22" height="1" fill="#c00038"/><!-- hem dark -->
+          <!-- skirt highlight -->
+          <rect x="3"  y="32" width="4"  height="3" fill="#ff3868"/>
+          <rect x="17" y="32" width="4"  height="3" fill="#ff3868"/>
+
+          <!-- ═══ LEGS ═══ -->
+          <rect x="8"  y="36" width="3" height="3" fill="#fccb94"/>
+          <rect x="13" y="36" width="3" height="3" fill="#fccb94"/>
+          <!-- stocking sheen -->
+          <rect x="8"  y="37" width="3" height="2" fill="#f0b87c" opacity="0.7"/>
+          <rect x="13" y="37" width="3" height="2" fill="#f0b87c" opacity="0.7"/>
+
+          <!-- ═══ HIGH HEELS ═══ -->
+          <rect x="6"  y="39" width="6" height="1" fill="#1a1a30"/><!-- left sole -->
+          <rect x="6"  y="38" width="2" height="1" fill="#1a1a30"/><!-- left heel post -->
+          <rect x="12" y="39" width="6" height="1" fill="#1a1a30"/><!-- right sole -->
+          <rect x="16" y="38" width="2" height="1" fill="#1a1a30"/><!-- right heel post -->
+
+          <!-- ═══ SPARKLE near winking eye ═══ -->
+          <rect x="1"  y="3"  width="1" height="5" fill="#ffe800"/>
+          <rect x="0"  y="5"  width="3" height="1" fill="#ffe800"/>
+          <rect x="2"  y="2"  width="1" height="1" fill="#fff176"/>
+          <rect x="3"  y="1"  width="1" height="1" fill="#fff176"/>
+
+          <!-- ═══ FLOATING HEART ═══ -->
+          <rect x="19" y="1"  width="2" height="3" fill="#ff6eb4"/>
+          <rect x="22" y="1"  width="2" height="3" fill="#ff6eb4"/>
+          <rect x="19" y="4"  width="5" height="2" fill="#ff6eb4"/>
+          <rect x="20" y="6"  width="3" height="2" fill="#ff6eb4"/>
+          <rect x="21" y="8"  width="1" height="1" fill="#ff6eb4"/>
+
+        </svg>
+        <div class="woman-bubble">НЕПЛОХО,<br>КАПИТАН!<br>ЕЩЁ РАЗ?</div>
+      </div>
+      <div id="win-stars"  class="win-stars">★★★</div>
+      <div id="win-time"   class="win-stat">TIME: 0s</div>
+      <div id="win-bumps"  class="win-stat">BUMPS: 0</div>
+      <div class="overlay-btns">
+        <button class="nes-btn nes-btn-yellow" id="btn-win-again">СНОВА</button>
+        <button class="nes-btn"                id="btn-win-menu">МЕНЮ</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- GAME OVER overlay -->
+  <div id="overlay-gameover" class="overlay overlay-gameover hidden">
+    <div class="overlay-box go-box">
+      <div class="overlay-title go-title">GAME OVER</div>
+      <div class="go-sub">АВАРИЯ!</div>
+      <div id="go-speed" class="go-stat">IMPACT: 0.0 KN</div>
+      <div class="go-tip">В следующий раз подходи<br>тихонько.</div>
+      <div class="overlay-btns">
+        <button class="nes-btn nes-btn-yellow" id="btn-go-again">ЕЩЁ РАЗ</button>
+        <button class="nes-btn"                id="btn-go-menu">МЕНЮ</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="seagull-layer" class="seagull-layer"></div>
+<div id="poop-layer" class="poop-layer"></div>
+
+<script src="./bundle.js"></script>
+</body>
+</html>
