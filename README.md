@@ -15,12 +15,6 @@ A docking trainer for building real berthing skills without the fear of scratchi
 
 This is a full rework of the original one-shot generation by [Tim Zinin](https://github.com/TimmyZinin) — same concept and vibe, rebuilt and extended.
 
-## Screenshots
-
-| Boot | Config | Game |
-|:----:|:------:|:----:|
-| ![boot](assets/screen-boot.png) | ![config](assets/screen-config.png) | ![game](assets/screen-game.png) |
-
 ## Quick Start
 
 ```bash

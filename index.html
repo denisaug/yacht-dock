@@ -1,11 +1,11 @@
 <!doctype html>
-<html lang="ru">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
 <meta name="theme-color" content="#0c1a3b">
-<meta name="description" content="YACHT DOCK — 8-bit тренажёр швартовки яхт. Ветер, киль, prop walk, bow thruster. Для будущих шкиперов.">
-<title>YACHT DOCK — тренажёр швартовки</title>
+<meta name="description" content="YACHT DOCK — 8-bit yacht docking trainer. Wind, keel, prop walk, bow thruster. For aspiring skippers.">
+<title>YACHT DOCK — Mooring Trainer</title>
 <link rel="stylesheet" href="./style.css">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%230c1a3b'/%3E%3Crect x='7' y='2' width='2' height='10' fill='%23fff'/%3E%3Cpath d='M9 3 L14 7 L9 7 Z' fill='%23ff3b3b'/%3E%3Crect x='4' y='11' width='8' height='2' fill='%23ffd23f'/%3E%3C/svg%3E">
 </head>
@@ -155,6 +155,7 @@
 
 <div id="game" class="game-screen hidden">
   <div class="hud">
+    <div class="hud-left"></div>
     <div class="hud-center">
       <div class="hud-label" id="hud-dock-label">ALONGSIDE</div>
       <div class="hud-status" id="hud-status">APPROACHING</div>
@@ -229,7 +230,7 @@
   <div id="overlay-win" class="overlay overlay-win hidden">
     <div id="confetti-layer" class="confetti-layer"></div>
     <div class="overlay-box win-box">
-      <div class="overlay-title win-title">ПРИЧАЛИЛ!</div>
+      <div class="overlay-title win-title">MOORED!</div>
       <div class="win-woman">
         <!-- pixel-art girl, 24×40 art-pixels @ 4px = 96×160 -->
         <svg class="woman-sprite" xmlns="http://www.w3.org/2000/svg"
@@ -376,14 +377,14 @@
           <rect x="21" y="8"  width="1" height="1" fill="#ff6eb4"/>
 
         </svg>
-        <div class="woman-bubble">НЕПЛОХО,<br>КАПИТАН!<br>ЕЩЁ РАЗ?</div>
+        <div class="woman-bubble">NOT BAD,<br>CAPTAIN!<br>AGAIN?</div>
       </div>
       <div id="win-stars"  class="win-stars">★★★</div>
       <div id="win-time"   class="win-stat">TIME: 0s</div>
       <div id="win-bumps"  class="win-stat">BUMPS: 0</div>
       <div class="overlay-btns">
-        <button class="nes-btn nes-btn-yellow" id="btn-win-again">СНОВА</button>
-        <button class="nes-btn"                id="btn-win-menu">МЕНЮ</button>
+        <button class="nes-btn nes-btn-yellow" id="btn-win-again">AGAIN</button>
+        <button class="nes-btn"                id="btn-win-menu">MENU</button>
       </div>
     </div>
   </div>
@@ -392,12 +393,12 @@
   <div id="overlay-gameover" class="overlay overlay-gameover hidden">
     <div class="overlay-box go-box">
       <div class="overlay-title go-title">GAME OVER</div>
-      <div class="go-sub">АВАРИЯ!</div>
+      <div class="go-sub">COLLISION!</div>
       <div id="go-speed" class="go-stat">IMPACT: 0.0 KN</div>
-      <div class="go-tip">В следующий раз подходи<br>тихонько.</div>
+      <div class="go-tip">Next time, come in<br>nice and slow.</div>
       <div class="overlay-btns">
-        <button class="nes-btn nes-btn-yellow" id="btn-go-again">ЕЩЁ РАЗ</button>
-        <button class="nes-btn"                id="btn-go-menu">МЕНЮ</button>
+        <button class="nes-btn nes-btn-yellow" id="btn-go-again">TRY AGAIN</button>
+        <button class="nes-btn"                id="btn-go-menu">MENU</button>
       </div>
     </div>
   </div>

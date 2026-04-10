@@ -137,7 +137,7 @@ function startGame() {
     $('btn-anchor').textContent = '⚓ DROP ANCHOR';
     $('btn-anchor').disabled = false;
     $('btn-anchor').classList.remove('dropped');
-    showToast('ВЫБЕРИТЕ МЕСТО И БРОСЬТЕ ЯКОРЬ [SPACE]', 5000);
+    showToast('PICK YOUR SPOT AND DROP ANCHOR [SPACE]', 5000);
   } else {
     $('anchor-panel').classList.add('hidden');
   }
@@ -253,11 +253,11 @@ function dropAnchor() {
   state.droppedAnchor = { x: bowX, y: bowY, chainLen, _tension: 0 };
   state.world.anchor = state.droppedAnchor;   // renderer reads from here
 
-  $('btn-anchor').textContent = '⚓ ЯКОРЬ БРОШЕН';
+  $('btn-anchor').textContent = '⚓ ANCHOR DROPPED';
   $('btn-anchor').disabled = true;
   $('btn-anchor').classList.add('dropped');
   state.audio?.bump();
-  showToast('ЯКОРЬ БРОШЕН — ДАВАЙ ЗАДНИМ!', 2500);
+  showToast('ANCHOR DROPPED — BACK DOWN SLOWLY!', 2500);
 }
 
 function showToast(txt, ms) {
