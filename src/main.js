@@ -131,6 +131,20 @@ function startGame() {
   state.startTime = performance.now();
   state.dockedSince = null;
 
+  window.umami?.track('game_start', {
+    dock:      state.cfg.dock,
+    length:    state.cfg.length,
+    keel:      state.cfg.keel,
+    rudder:    state.cfg.rudder,
+    thruster:  state.cfg.thruster,
+    wind_kn:   state.cfg.wind,
+    wind_dir:  state.cfg.winddir,
+    gusts:     state.cfg.gusts,
+    obstacles: state.cfg.obs,
+    music_vol: state.cfg.musicvol,
+    sfx_vol:   state.cfg.sfxvol,
+  });
+
   // Anchor mode: show the anchor panel and usage hint
   if (state.cfg.dock === 'stern-anchor') {
     $('anchor-panel').classList.remove('hidden');
@@ -294,12 +308,32 @@ function showWin() {
   overlay.classList.remove('hidden');
   // Confetti burst
   startConfetti();
+
+  const sec = Math.round((performance.now() - state.startTime) / 1000);
+  window.umami?.track('moored', {
+    dock: state.cfg.dock,
+    stars,
+    time_sec: sec,
+    bumps: state.bumpCount,
+    wind_kn: state.cfg.wind,
+    length: state.cfg.length,
+  });
 }
 
 function showGameOver(speed) {
   const overlay = $('overlay-gameover');
   $('go-speed').textContent = `IMPACT: ${(speed / 0.5144).toFixed(1)} KN`;
   overlay.classList.remove('hidden');
+
+  const sec = Math.round((performance.now() - state.startTime) / 1000);
+  window.umami?.track('collision', {
+    dock: state.cfg.dock,
+    impact_kn: parseFloat((speed / 0.5144).toFixed(1)),
+    time_sec: sec,
+    bumps: state.bumpCount,
+    wind_kn: state.cfg.wind,
+    length: state.cfg.length,
+  });
 }
 
 function hideOverlays() {
